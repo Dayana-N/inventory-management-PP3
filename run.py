@@ -1,11 +1,10 @@
 '''
 Main code for the program for terminal of 80 characters wide and 24 rows high
 '''
-
+import re
 import gspread
 from google.oauth2.service_account import Credentials
 from rich.console import Console
-import re
 
 
 SCOPE = [
@@ -21,6 +20,8 @@ SHEET = GSPREAD_CLIENT.open('pp3-inventory-management')
 
 console = Console()
 warehouse_data = SHEET.worksheet('warehouse')
+job_data = SHEET.worksheet('job')
+engineer_data = SHEET.worksheet('engineer')
 
 
 class CreateStock():
@@ -66,14 +67,16 @@ def stock_serial_input():
     Validates the user input for serial number. Only letters,
     numbers and dash allowed
     '''
+    stock_serial = ''
     while True:
         console.print('Please enter the serial number of stock you wish to',
                       'add. For example: SN-1234', justify='center',
                       style='cyan')
-        stock_serial = input()
+        serial_input = input()
         pattern = r"^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$"
-        if re.match(pattern, stock_serial) and 4 <= len(stock_serial) <= 20:
-            return stock_serial
+        if re.match(pattern, serial_input) and 4 <= len(serial_input) <= 20:
+            stock_serial = serial_input
+            break
         else:
             console.print(
                 '''
@@ -81,6 +84,8 @@ def stock_serial_input():
                 The input must be between 4 and 20 characters
                 ''', justify='center', style='red'
             )
+
+    return stock_serial
 
 
 def stock_location_input():
@@ -138,7 +143,8 @@ def stock_loc_name_input(location):
     elif location == 'job':
         while True:
             console.print(
-                'Please enter the name of the site. For example: Circle K')
+                'Please enter the name of the site. For example: Circle K',
+                justify='center', style='cyan')
             loc_name_input = input()
             pattern = r"^[a-zA-Z]+(?: [a-zA-Z]+)*$"
             if re.match(pattern, loc_name_input) and 4 <= len(loc_name_input) <= 20:
@@ -167,15 +173,38 @@ def stock_loc_name_input(location):
     return loc_name
 
 
-def check_database():
+def stock_input():
     '''
-    Calls the input validating functions and then checks if the serial number,
-    exist in the system
+    Calls the input validating functions,
+    creates an object and adds it to spreadsheet
     '''
-    stock_name_input()
-    stock_serial_input()
-    location_input = stock_location_input()
-    stock_loc_name_input(location_input)
+    stock_name = stock_name_input()
+    stock_serial = stock_serial_input()
+    stock_location = stock_location_input()
+    location_name = stock_loc_name_input(stock_location)
+    return stock_name, stock_serial, stock_location, location_name
+
+
+def add_stock(entry):
+    '''
+    Add the new entry to spreadsheet, 
+    add exeptions for potential errors
+    '''
+    try:
+        current_sheet = SHEET.worksheet(entry.location)
+        current_sheet.append_row([entry.s_name, entry.serial,
+                                 entry.location, entry.loc_name])
+        console.print(entry.s_name, entry.serial, entry.location,
+                      entry.loc_name, 'added successfully.', justify='center',
+                      style='green')
+    except gspread.exceptions.WorksheetNotFound:
+        console.print('Invalid Value. Please try again.',
+                      justify='center', style='red')
+        main_menu()
+    except gspread.exceptions.APIError:
+        console.print('An Error occurred. Please try again.',
+                      justify='center', style='red')
+        main_menu()
 
 
 def main_menu():
@@ -187,7 +216,10 @@ def main_menu():
                       'TO SEARCH OR Q TO QUIT\n', justify='center', style='cyan')
         user_input = input()
         if user_input.lower() == 'c':
-            check_database()
+            user_input = stock_input()
+            entry = CreateStock(*user_input)
+
+            add_stock(entry)
         elif user_input.lower() == 'v':
             pass
         elif user_input.lower() == 's':
