@@ -187,24 +187,39 @@ def stock_input():
 
 def add_stock(entry):
     '''
-    Add the new entry to spreadsheet, 
-    add exeptions for potential errors
+    Check if the serial number exist on the system,
+    if not adds it to spreadsheet and handles potential errors
     '''
+    serial_num = entry.serial
+    find_serial = None
     try:
-        current_sheet = SHEET.worksheet(entry.location)
-        current_sheet.append_row([entry.s_name, entry.serial,
-                                 entry.location, entry.loc_name])
-        console.print(entry.s_name, entry.serial, entry.location,
-                      entry.loc_name, 'added successfully.', justify='center',
-                      style='green')
+        for worksheet in SHEET.worksheets():
+            find_serial = worksheet.find(serial_num)
+            break
     except gspread.exceptions.WorksheetNotFound:
-        console.print('Invalid Value. Please try again.',
+        console.print('Worksheet not found. Please try again.',
                       justify='center', style='red')
         main_menu()
-    except gspread.exceptions.APIError:
-        console.print('An Error occurred. Please try again.',
+
+    if find_serial is not None:
+        try:
+            current_sheet = SHEET.worksheet(entry.location)
+            current_sheet.append_row([entry.s_name, entry.serial,
+                                      entry.location, entry.loc_name])
+            console.print(entry.s_name, entry.serial, entry.location,
+                          entry.loc_name, 'added successfully.',
+                          justify='center', style='green')
+        except gspread.exceptions.WorksheetNotFound:
+            console.print('Worksheet not found. Please try again.',
+                          justify='center', style='red')
+            main_menu()
+        except gspread.exceptions.APIError:
+            console.print('An Error occurred. Please try again.',
+                          justify='center', style='red')
+            main_menu()
+    else:
+        console.print('This serial number already exist on the system',
                       justify='center', style='red')
-        main_menu()
 
 
 def main_menu():
