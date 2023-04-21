@@ -5,6 +5,7 @@ import re
 import gspread
 from google.oauth2.service_account import Credentials
 from rich.console import Console
+from rich.table import Table
 
 
 SCOPE = [
@@ -222,6 +223,27 @@ def add_stock(entry):
                       justify='center', style='red')
 
 
+def view_stock():
+    '''
+    Displays the stock in a table format
+    '''
+    index = 0
+    table = Table(title='List of all stock')
+    table.add_column('№', justify='left', style='cyan')
+    table.add_column('Item Name', justify='left', style='cyan')
+    table.add_column('Serial No', justify='left', style='cyan')
+    table.add_column('Location', justify='left', style='cyan')
+    table.add_column('Name', justify='left', style='cyan')
+
+    for worksheet in SHEET.worksheets():
+        worksheet_data = worksheet.get_all_values()
+        for row in worksheet_data[1:]:
+            index += 1
+            table.add_row(str(index), *row)
+
+    console.print(table, justify='center')
+
+
 def main_menu():
     '''
     Main menu function
@@ -236,7 +258,7 @@ def main_menu():
 
             add_stock(entry)
         elif user_input.lower() == 'v':
-            pass
+            view_stock()
         elif user_input.lower() == 's':
             pass
         elif user_input.lower() == 'q':
