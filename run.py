@@ -139,8 +139,9 @@ def stock_loc_name_input(location):
                 loc_name = 'bad'
                 break
             else:
-                console.print('Invalid input. Please select one of the following options',
-                              justify='center', style='red')
+                console.print('Invalid input. Please select one of the',
+                              'following options', justify='center',
+                              style='red')
     elif location == 'job':
         while True:
             console.print(
@@ -281,17 +282,35 @@ def view_stock(worksheet_name=None):
     table.add_column('Name', justify='left', style='cyan')
 
     if worksheet_name is not None:
-        current_worksheet = SHEET.worksheet(worksheet_name)
-        worksheet_data = current_worksheet.get_all_values()
-        for row in worksheet_data[1:]:
-            index += 1
-            table.add_row(str(index), *row)
-    else:
-        for worksheet in SHEET.worksheets():
-            worksheet_data = worksheet.get_all_values()
+        try:
+            current_worksheet = SHEET.worksheet(worksheet_name)
+            worksheet_data = current_worksheet.get_all_values()
             for row in worksheet_data[1:]:
                 index += 1
                 table.add_row(str(index), *row)
+        except gspread.exceptions.WorksheetNotFound:
+            console.print('Worksheet not found. Please try again.',
+                          justify='center', style='red')
+            main_menu()
+        except gspread.exceptions.APIError:
+            console.print('An Error occurred. Please try again.',
+                          justify='center', style='red')
+            main_menu()
+    else:
+        try:
+            for worksheet in SHEET.worksheets():
+                worksheet_data = worksheet.get_all_values()
+                for row in worksheet_data[1:]:
+                    index += 1
+                    table.add_row(str(index), *row)
+        except gspread.exceptions.WorksheetNotFound:
+            console.print('Worksheet not found. Please try again.',
+                          justify='center', style='red')
+            main_menu()
+        except gspread.exceptions.APIError:
+            console.print('An Error occurred. Please try again.',
+                          justify='center', style='red')
+            main_menu()
 
     console.print(table, justify='center')
 
@@ -302,7 +321,8 @@ def main_menu():
     '''
     while True:
         console.print('PRESS C TO ADD STOCK, PRESS V TO VIEW STOCK, PRESS S',
-                      'TO SEARCH OR Q TO QUIT\n', justify='center', style='cyan')
+                      'TO SEARCH OR Q TO QUIT\n', justify='center',
+                      style='cyan')
         user_input = input()
         if user_input.lower() == 'c':
             user_input = stock_input()
