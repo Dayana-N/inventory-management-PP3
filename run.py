@@ -315,16 +315,34 @@ def view_stock(worksheet_name=None):
     console.print(table, justify='center')
 
 
-def search_again_menu():
+def delete_entry(result, worksheet):
+    '''
+    Delete current stock
+    '''
+    current_row = result.row
+    worksheet.delete_rows(current_row)
+    console.print('Serial number delete successfully',
+                  justify='center', style='green')
+
+
+def search_again_menu(result, worksheet):
     '''
     Search menu options
     '''
     while True:
-        console.print('Press S to search again or Q for main menu',
+        console.print('''Please Press:
+        S to search again
+        E to edit stock location
+        D to delete
+        Q for main menu''',
                       justify='center', style='cyan')
         user_input = input()
         if user_input.lower() == 's':
             validate_search_data()
+        elif user_input.lower() == 'e':
+            pass
+        elif user_input.lower() == 'd':
+            delete_entry(result, worksheet)
         elif user_input.lower() == 'q':
             main_menu()
         else:
@@ -337,7 +355,6 @@ def search_data(result, worksheet):
     Search data and displays it in a table
     '''
     result_row_data = worksheet.row_values(result.row)
-    print(result_row_data)
     table = Table(title='Result')
     table.add_column('Item Name', justify='left', style='cyan')
     table.add_column('Serial No', justify='left', style='cyan')
@@ -346,7 +363,7 @@ def search_data(result, worksheet):
     table.add_row(*result_row_data)
     console.print(table, justify='center')
 
-    search_again_menu()
+    search_again_menu(result, worksheet)
 
 
 def validate_search_data():
