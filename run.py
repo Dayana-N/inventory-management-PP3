@@ -86,7 +86,7 @@ def stock_serial_input():
                 ''', justify='center', style='red'
             )
 
-    return stock_serial
+    return stock_serial.upper()
 
 
 def stock_location_input():
@@ -315,6 +315,78 @@ def view_stock(worksheet_name=None):
     console.print(table, justify='center')
 
 
+def search_again_menu():
+    '''
+    Search menu options
+    '''
+    while True:
+        console.print('Press S to search again or Q for main menu',
+                      justify='center', style='cyan')
+        user_input = input()
+        if user_input.lower() == 's':
+            validate_search_data()
+        elif user_input.lower() == 'q':
+            main_menu()
+        else:
+            console.print('Invalid Input. Try again',
+                          justify='center', style='red')
+
+
+def search_data(result, worksheet):
+    '''
+    Search data and displays it in a table
+    '''
+    result_row_data = worksheet.row_values(result.row)
+    print(result_row_data)
+    table = Table(title='Result')
+    table.add_column('Item Name', justify='left', style='cyan')
+    table.add_column('Serial No', justify='left', style='cyan')
+    table.add_column('Location', justify='left', style='cyan')
+    table.add_column('Name', justify='left', style='cyan')
+    table.add_row(*result_row_data)
+    console.print(table, justify='center')
+
+    search_again_menu()
+
+
+def validate_search_data():
+    '''
+    Allows the user to search by serial number
+    '''
+    while True:
+        console.print('Please enter the serial number you wish to search:',
+                      justify='center', style='cyan')
+        user_input = input()
+        pattern = r"^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$"
+        if re.match(pattern, user_input) and 4 <= len(user_input) <= 20:
+            result_found = False
+            try:
+                for worksheet in SHEET.worksheets():
+                    result = worksheet.find(user_input.upper())
+                    if result:
+                        search_data(result, worksheet)
+                        result_found = True
+                if not result_found:
+                    console.print('No results found',
+                                  justify='center', style='red')
+                    search_again_menu()
+            except gspread.exceptions.WorksheetNotFound:
+                console.print('Worksheet not found. Please try again.',
+                              justify='center', style='red')
+                main_menu()
+            except gspread.exceptions.APIError:
+                console.print('An Error occurred. Please try again.',
+                              justify='center', style='red')
+                main_menu()
+        else:
+            console.print(
+                '''
+                The input can contain alphanumeric values and dash
+                The input must be between 4 and 20 characters
+                ''', justify='center', style='red'
+            )
+
+
 def main_menu():
     '''
     Main menu function
@@ -332,7 +404,7 @@ def main_menu():
         elif user_input.lower() == 'v':
             view_stock_menu()
         elif user_input.lower() == 's':
-            pass
+            validate_search_data()
         elif user_input.lower() == 'q':
             quit()
         else:
