@@ -196,13 +196,12 @@ def add_stock(entry):
     try:
         for worksheet in SHEET.worksheets():
             find_serial = worksheet.find(serial_num)
-            break
     except gspread.exceptions.WorksheetNotFound:
         console.print('Worksheet not found. Please try again.',
                       justify='center', style='red')
         main_menu()
 
-    if find_serial is not None:
+    if find_serial is None:
         try:
             current_sheet = SHEET.worksheet(entry.location)
             current_sheet.append_row([entry.s_name, entry.serial,
@@ -223,7 +222,53 @@ def add_stock(entry):
                       justify='center', style='red')
 
 
-def view_stock():
+def view_stock_menu():
+    '''
+    Asks the user if they would like to see all stock,
+    engineer stock, warehouse or stock on site
+    '''
+    console.print('''Please press
+    A to view all stock
+    W to view warehouse stock
+    J to view job/site stock
+    E to view engineer stock
+    Q to go back to main menu''', justify='center', style='cyan')
+    user_input = input()
+
+    while True:
+        if user_input.lower() == 'a':
+            view_stock()
+            break
+        elif user_input.lower() == 'w':
+            view_stock('warehouse')
+            break
+        elif user_input.lower() == 'j':
+            view_stock('job')
+            break
+        elif user_input.lower() == 'e':
+            view_stock('engineer')
+            break
+        elif user_input.lower() == 'q':
+            main_menu()
+        else:
+            console.print('Invalid input. Please try again',
+                          justify='center', style='red')
+
+    while True:
+        console.print('Press B to go back or Q to quit',
+                      justify='center', style='cyan')
+        user_input = input()
+        if user_input.lower() == 'b':
+            view_stock_menu()
+            break
+        elif user_input.lower() == 'q':
+            main_menu()
+        else:
+            console.print('Invalid input. Please try again',
+                          justify='center', style='red')
+
+
+def view_stock(worksheet_name=None):
     '''
     Displays the stock in a table format
     '''
@@ -235,11 +280,18 @@ def view_stock():
     table.add_column('Location', justify='left', style='cyan')
     table.add_column('Name', justify='left', style='cyan')
 
-    for worksheet in SHEET.worksheets():
-        worksheet_data = worksheet.get_all_values()
+    if worksheet_name is not None:
+        current_worksheet = SHEET.worksheet(worksheet_name)
+        worksheet_data = current_worksheet.get_all_values()
         for row in worksheet_data[1:]:
             index += 1
             table.add_row(str(index), *row)
+    else:
+        for worksheet in SHEET.worksheets():
+            worksheet_data = worksheet.get_all_values()
+            for row in worksheet_data[1:]:
+                index += 1
+                table.add_row(str(index), *row)
 
     console.print(table, justify='center')
 
@@ -258,7 +310,7 @@ def main_menu():
 
             add_stock(entry)
         elif user_input.lower() == 'v':
-            view_stock()
+            view_stock_menu()
         elif user_input.lower() == 's':
             pass
         elif user_input.lower() == 'q':
