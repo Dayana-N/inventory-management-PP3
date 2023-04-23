@@ -27,7 +27,7 @@ engineer_data = SHEET.worksheet('engineer')
 
 class CreateStock():
     '''
-    Creates object with for new stock
+    Creates object for new stock
     by taking stock name, serial number, location and location name
     '''
 
@@ -122,7 +122,7 @@ def stock_location_input():
 def stock_loc_name_input(location):
     '''
     Checks the location and asks the user to enter,
-    location name based on the result
+    location name based on the result, validates the input
     '''
     loc_name = ''
     if location == 'warehouse':
@@ -149,7 +149,8 @@ def stock_loc_name_input(location):
                 justify='center', style='cyan')
             loc_name_input = input()
             pattern = r"^[a-zA-Z]+(?: [a-zA-Z]+)*$"
-            if re.match(pattern, loc_name_input) and 4 <= len(loc_name_input) <= 20:
+            if re.match(pattern, loc_name_input) and \
+                    4 <= len(loc_name_input) <= 20:
                 loc_name = loc_name_input
                 break
             else:
@@ -163,7 +164,8 @@ def stock_loc_name_input(location):
                 'Please enter the name of engineer. For example: John Smyth')
             loc_name_input = input()
             pattern = r"^[a-zA-Z]+(?: [a-zA-Z]+)*$"
-            if re.match(pattern, loc_name_input) and 4 <= len(loc_name_input) <= 20:
+            if re.match(pattern, loc_name_input) and \
+                    4 <= len(loc_name_input) <= 20:
                 loc_name = loc_name_input
                 break
             else:
@@ -321,8 +323,9 @@ def delete_entry(result, worksheet):
     '''
     while True:
 
-        console.print('You are about to delete this serial number from the system',
-                      'Do you wish to continue?', 'Press Y for YES or N for NO',
+        console.print('''You are about to delete this serial number from
+                      the system. Do you wish to continue?
+                      Press Y for YES or N for NO''',
                       justify='center', style='red')
         user_input = input()
 
@@ -365,7 +368,6 @@ def edit_entry(result, worksheet):
     worksheet.update_cell(result.row, (result.col+1), new_loc)
     worksheet.update_cell(result.row, (result.col+2), new_loc_name)
     new_entry = worksheet.row_values(result.row)
-    print(new_entry)
     if new_loc != worksheet.title:
         try:
             current_sheet = SHEET.worksheet(new_loc)
@@ -455,7 +457,8 @@ def search_data(result, worksheet):
 
 def validate_search_data():
     '''
-    Allows the user to search by serial number
+    Allows the user to search by serial number in all worksheets
+    Validates the user search input and handles any potential errors
     '''
     while True:
         console.print('Please enter the serial number you wish to search:',
@@ -497,7 +500,8 @@ def quit_menu():
     '''
     while True:
         console.print('Do you wish to exit the program?',
-                      'Press Y for YES or N for NO', justify='center', style='red')
+                      'Press Y for YES or N for NO',
+                      justify='center', style='red')
         user_input = input()
         if user_input.lower() == 'y':
             console.print('Exiting... GoodBye!',
@@ -512,6 +516,20 @@ def quit_menu():
                           justify='center', style='red')
 
 
+def welcome_screen():
+    '''
+    Prints welcome message
+    '''
+    console.print('Welcome to Inventory Management\n',
+                  justify='center', style='cyan3')
+    console.print('''
+    The program designed to manage serialized stock.
+    Inventory Management allows you to add stock by defining the stock name,
+    serial number, location and location name. You can view stock by location,
+    search by serial number, edit location and delete stock on the system.\n
+    ''', justify='center', style='blue')
+
+
 def main_menu():
     '''
     Main menu function
@@ -520,7 +538,7 @@ def main_menu():
         console.print('------ MAIN MENU ------',
                       justify='center', style='blue')
         console.print('PRESS C TO ADD STOCK, PRESS V TO VIEW STOCK, PRESS S',
-                      'TO SEARCH OR Q TO QUIT\n', justify='center',
+                      'TO SEARCH AND EDIT OR Q TO QUIT\n', justify='center',
                       style='cyan')
         user_input = input()
         if user_input.lower() == 'c':
@@ -539,4 +557,5 @@ def main_menu():
                           'options (C,V,S,Q)', justify='center', style='red')
 
 
+welcome_screen()
 main_menu()
