@@ -354,6 +354,39 @@ def delete_entry(result, worksheet):
                           justify='center', style='red')
 
 
+def edit_entry(result, worksheet):
+    '''
+    Edit entry
+    '''
+    new_loc = stock_location_input()
+    new_loc_name = stock_loc_name_input(new_loc)
+
+    worksheet.update_cell(result.row, (result.col+1), new_loc)
+    worksheet.update_cell(result.row, (result.col+2), new_loc_name)
+    new_entry = worksheet.row_values(result.row)
+    print(new_entry)
+    if new_loc != worksheet.title:
+        try:
+            current_sheet = SHEET.worksheet(new_loc)
+            current_sheet.append_row(new_entry)
+
+            old_row = result.row
+            worksheet.delete_rows(old_row)
+            console.print(','.join(new_entry), 'updated successfully.',
+                          justify='center', style='green')
+        except gspread.exceptions.WorksheetNotFound:
+            console.print('Worksheet not found. Please try again.',
+                          justify='center', style='red')
+            main_menu()
+        except gspread.exceptions.APIError:
+            console.print('An Error occurred. Please try again.',
+                          justify='center', style='red')
+            main_menu()
+    else:
+        console.print(','.join(new_entry), 'updated successfully.',
+                      justify='center', style='green')
+
+
 def search_again_menu(result, worksheet):
     '''
     Search menu options
@@ -369,7 +402,19 @@ def search_again_menu(result, worksheet):
         if user_input.lower() == 's':
             validate_search_data()
         elif user_input.lower() == 'e':
-            pass
+            edit_entry(result, worksheet)
+
+            console.print('Press S to search or M to go back to main menu',
+                          justify='center', style='cyan')
+            user_answer = input()
+            if user_answer.lower() == 's':
+                validate_search_data()
+            elif user_answer.lower() == 'm':
+                main_menu()
+            else:
+                console.print('Invalid Input. Try again',
+                              justify='center', style='red')
+
         elif user_input.lower() == 'd':
             delete_entry(result, worksheet)
 
