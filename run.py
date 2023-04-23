@@ -319,10 +319,39 @@ def delete_entry(result, worksheet):
     '''
     Delete current stock
     '''
-    current_row = result.row
-    worksheet.delete_rows(current_row)
-    console.print('Serial number delete successfully',
-                  justify='center', style='green')
+    while True:
+
+        console.print('You are about to delete this serial number from the system',
+                      'Do you wish to continue?', 'Press Y for YES or N for NO',
+                      justify='center', style='red')
+        user_input = input()
+
+        if user_input.lower() == 'y':
+            current_row = result.row
+            result_row_values = worksheet.row_values(result.row)
+            worksheet.delete_rows(current_row)
+            console.print('Serial number deleted successfully', ','.join(result_row_values),
+                          justify='center', style='green')
+
+            while True:
+                console.print('Press S to search or M to go back to main menu',
+                              justify='center', style='cyan')
+                user_answer = input()
+                if user_answer.lower() == 's':
+                    validate_search_data()
+                elif user_answer.lower() == 'm':
+                    main_menu()
+                else:
+                    console.print('Invalid Input. Try again',
+                                  justify='center', style='red')
+
+        elif user_input.lower() == 'n':
+            console.print('Redirecting to main menu',
+                          justify='center', style='cyan')
+            main_menu()
+        else:
+            console.print('Invalid Input. Try again',
+                          justify='center', style='red')
 
 
 def search_again_menu(result, worksheet):
@@ -343,6 +372,18 @@ def search_again_menu(result, worksheet):
             pass
         elif user_input.lower() == 'd':
             delete_entry(result, worksheet)
+
+            console.print('Press S to search or M to go back to main menu',
+                          justify='center', style='cyan')
+            user_answer = input()
+            if user_answer.lower() == 's':
+                validate_search_data()
+            elif user_answer.lower() == 'm':
+                main_menu()
+            else:
+                console.print('Invalid Input. Try again',
+                              justify='center', style='red')
+
         elif user_input.lower() == 'q':
             main_menu()
         else:
@@ -386,7 +427,7 @@ def validate_search_data():
                 if not result_found:
                     console.print('No results found',
                                   justify='center', style='red')
-                    search_again_menu()
+                    main_menu()
             except gspread.exceptions.WorksheetNotFound:
                 console.print('Worksheet not found. Please try again.',
                               justify='center', style='red')
