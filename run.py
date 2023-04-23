@@ -95,10 +95,13 @@ def stock_location_input():
     '''
 
     while True:
-        console.print('''PLEASE SELECT STOCK LOCATION:
+        console.print(
+            '''
+        PLEASE SELECT STOCK LOCATION:
         PRESS W FOR WAREHOUSE
         PRESS J FOR JOB/SITE
-        PRESS E TO ASSIGN TO ENGINEER''', justify='center', style='cyan2')
+        PRESS E TO ASSIGN TO ENGINEER
+        ''', justify='center', style='cyan2')
         stock_loc_input = input()
         stock_location = ''
 
@@ -259,6 +262,7 @@ def view_stock_menu():
         else:
             console.print('Invalid input. Please try again',
                           justify='center', style='red')
+            view_stock_menu()
 
     while True:
         console.print('PRESS B TO GO BACK OR M FOR MAIN MENU',
@@ -272,6 +276,7 @@ def view_stock_menu():
         else:
             console.print('Invalid input. Please try again',
                           justify='center', style='red')
+            view_stock_menu()
 
 
 def view_stock(worksheet_name=None):
@@ -327,10 +332,12 @@ def delete_entry(result, worksheet):
     '''
     while True:
 
-        console.print('''You are about to delete this serial number from
-                         the system. Do you wish to continue?
-                         Press Y for YES or N for NO''',
-                      justify='center', style='red')
+        console.print(
+            '''
+            You are about to delete this serial number from
+            the system. Do you wish to continue?
+            Press Y for YES or N for NO
+            ''', justify='center', style='red')
         user_input = input()
 
         if user_input.lower() == 'y':
@@ -350,16 +357,18 @@ def delete_entry(result, worksheet):
                 elif user_answer.lower() == 'm':
                     main_menu()
                 else:
-                    console.print('Invalid Input. Try again',
+                    console.print('Invalid Input. Redirecting to main menu...',
                                   justify='center', style='red')
+                    main_menu()
 
         elif user_input.lower() == 'n':
             console.print('Redirecting to main menu...',
                           justify='center', style='cyan2')
             main_menu()
         else:
-            console.print('Invalid Input. Try again',
+            console.print('Invalid Input. Redirecting to main menu...',
                           justify='center', style='red')
+            main_menu()
 
 
 def edit_entry(result, worksheet):
@@ -382,7 +391,7 @@ def edit_entry(result, worksheet):
 
             old_row = result.row
             worksheet.delete_rows(old_row)
-            console.print(','.join(new_entry), 'updated successfully.',
+            console.print(','.join(new_entry), 'updated successfully.\n',
                           justify='center', style='green')
         except gspread.exceptions.WorksheetNotFound:
             console.print('Worksheet not found. Please try again.',
@@ -393,7 +402,7 @@ def edit_entry(result, worksheet):
                           justify='center', style='red')
             main_menu()
     else:
-        console.print(','.join(new_entry), 'updated successfully.',
+        console.print(','.join(new_entry), 'updated successfully.\n',
                       justify='center', style='green')
 
 
@@ -402,12 +411,15 @@ def search_again_menu(result, worksheet):
     Search menu options
     '''
     while True:
-        console.print('''PLEASE PRESS:
-                            S TO SEARCH AGAIN
-                            E TO EDIT STOCK LOCATION
-                            D TO DELETE
-                            M FOR MAIN MENU''',
-                      justify='center', style='cyan2')
+        console.print(
+            '''
+        PLEASE PRESS:
+        S TO SEARCH AGAIN
+        E TO EDIT STOCK LOCATION
+        D TO DELETE
+        M FOR MAIN MENU
+        ''', justify='center', style='cyan2')
+
         user_input = input()
         if user_input.lower() == 's':
             validate_search_data()
@@ -422,8 +434,9 @@ def search_again_menu(result, worksheet):
             elif user_answer.lower() == 'm':
                 main_menu()
             else:
-                console.print('Invalid Input. Try again',
+                console.print('Invalid Input. redirecting to main menu...',
                               justify='center', style='red')
+                main_menu()
 
         elif user_input.lower() == 'd':
             delete_entry(result, worksheet)
@@ -436,14 +449,16 @@ def search_again_menu(result, worksheet):
             elif user_answer.lower() == 'm':
                 main_menu()
             else:
-                console.print('Invalid Input. Try again',
+                console.print('Invalid Input. Redirecting to main menu...',
                               justify='center', style='red')
+                main_menu()
 
         elif user_input.lower() == 'm':
             main_menu()
         else:
-            console.print('Invalid Input. Try again',
+            console.print('Invalid Input. Redirecting to main menu...',
                           justify='center', style='red')
+            main_menu()
 
 
 def search_data(result, worksheet):
@@ -481,7 +496,7 @@ def validate_search_data():
                         search_data(result, worksheet)
                         result_found = True
                 if not result_found:
-                    console.print('No results found',
+                    console.print('No results found\n',
                                   justify='center', style='red')
                     main_menu()
             except gspread.exceptions.WorksheetNotFound:
@@ -515,7 +530,7 @@ def quit_menu():
                           justify='center', style='green')
             quit()
         elif user_input.lower() == 'n':
-            console.print('Redirecting to main menu',
+            console.print('Redirecting to main menu...',
                           justify='center', style='green')
             main_menu()
         else:
@@ -542,8 +557,10 @@ def main_menu():
     Main menu function
     '''
     while True:
-        console.print(' ------ MAIN MENU ------ ',
-                      justify='center', style='light_steel_blue1')
+        console.print(
+            '''
+             ------ MAIN MENU ------ 
+             ''', justify='center', style='light_steel_blue1')
         console.print(
             '''
         PRESS C TO ADD STOCK
