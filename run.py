@@ -44,9 +44,9 @@ def stock_name_input():
     numbers and empty spaces allowed, not only empty space on it's own
     '''
     while True:
-        console.print('Please enter the name of stock you wish to add',
-                      'For example: Clover Station',
-                      justify='center', style='cyan')
+        console.print('PLEASE ENTER THE NAME OF THE STOCK YOU WISH TO ADD',
+                      'FOR EXAMPLE: Clover Station',
+                      justify='center', style='cyan2')
         stock_name = input()
         pattern = r"^(?!.*\s\s)(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s]*[a-zA-Z0-9]$"
         if re.match(pattern, stock_name) and 4 <= len(stock_name) <= 20:
@@ -70,9 +70,9 @@ def stock_serial_input():
     '''
     stock_serial = ''
     while True:
-        console.print('Please enter the serial number of stock you wish to',
-                      'add. For example: SN-1234', justify='center',
-                      style='cyan')
+        console.print('PLEASE ENTER THE SERIAL NUMBER YOU WISH TO ADD',
+                      'FOR EXAMPLE: SN-1234', justify='center',
+                      style='cyan2')
         serial_input = input()
         pattern = r"^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$"
         if re.match(pattern, serial_input) and 4 <= len(serial_input) <= 20:
@@ -95,10 +95,10 @@ def stock_location_input():
     '''
 
     while True:
-        console.print('''Please select stock location,
-        Press W for warehouse
-        Press J for job/site
-        Press E to assign to engineer''', justify='center', style='cyan')
+        console.print('''PLEASE SELECT STOCK LOCATION:
+        PRESS W FOR WAREHOUSE
+        PRESS J FOR JOB/SITE
+        PRESS E TO ASSIGN TO ENGINEER''', justify='center', style='cyan2')
         stock_loc_input = input()
         stock_location = ''
 
@@ -128,9 +128,9 @@ def stock_loc_name_input(location):
     if location == 'warehouse':
         while True:
             console.print('''
-            Please Enter:
-            G to add to good stock,
-            B to add to bad stock''', justify='center', style='cyan')
+            PLEASE ENTER:
+            G TO ADD TO GOOD STOCK,
+            B TO ADD TO BAD STOCK''', justify='center', style='cyan2')
             loc_name_input = input()
             if loc_name_input.lower() == 'g':
                 loc_name = 'good'
@@ -145,8 +145,8 @@ def stock_loc_name_input(location):
     elif location == 'job':
         while True:
             console.print(
-                'Please enter the name of the site. For example: Circle K',
-                justify='center', style='cyan')
+                'PLEASE ENTER THE NAME OF THE SITE. FOR EXAMPLE: Circle K',
+                justify='center', style='cyan2')
             loc_name_input = input()
             pattern = r"^[a-zA-Z]+(?: [a-zA-Z]+)*$"
             if re.match(pattern, loc_name_input) and \
@@ -161,7 +161,7 @@ def stock_loc_name_input(location):
     elif location == 'engineer':
         while True:
             console.print(
-                'Please enter the name of engineer. For example: John Smyth')
+                'PLEASE ENTER THE NAME OF ENGINEER. FOR EXAMPLE: John Smyth')
             loc_name_input = input()
             pattern = r"^[a-zA-Z]+(?: [a-zA-Z]+)*$"
             if re.match(pattern, loc_name_input) and \
@@ -210,7 +210,7 @@ def add_stock(entry):
             current_sheet.append_row([entry.s_name, entry.serial,
                                       entry.location, entry.loc_name])
             console.print(entry.s_name, entry.serial, entry.location,
-                          entry.loc_name, 'added successfully.',
+                          entry.loc_name, 'ADDED SUCCESSFULLY.\n',
                           justify='center', style='green')
         except gspread.exceptions.WorksheetNotFound:
             console.print('Worksheet not found. Please try again.',
@@ -230,12 +230,15 @@ def view_stock_menu():
     Asks the user if they would like to see all stock,
     engineer stock, warehouse or stock on site
     '''
-    console.print('''Please press
-    A to view all stock
-    W to view warehouse stock
-    J to view job/site stock
-    E to view engineer stock
-    M to go back to main menu''', justify='center', style='cyan')
+    console.print(
+        '''
+    PLEASE PRESS
+    A TO VIEW ALL STOCK
+    W TO VIEW WAREHOUSE STOCK
+    J TO VIEW JOB/SITE STOCK
+    E TO VIEW ENGINEER STOCK
+    M FOR MAIN MENU
+    ''', justify='center', style='cyan2')
     user_input = input()
 
     while True:
@@ -258,8 +261,8 @@ def view_stock_menu():
                           justify='center', style='red')
 
     while True:
-        console.print('Press B to go back or M to main menu',
-                      justify='center', style='cyan')
+        console.print('PRESS B TO GO BACK OR M FOR MAIN MENU',
+                      justify='center', style='cyan2')
         user_input = input()
         if user_input.lower() == 'b':
             view_stock_menu()
@@ -276,12 +279,12 @@ def view_stock(worksheet_name=None):
     Displays the stock in a table format
     '''
     index = 0
-    table = Table(title='List of all stock')
-    table.add_column('№', justify='left', style='cyan')
-    table.add_column('Item Name', justify='left', style='cyan')
-    table.add_column('Serial No', justify='left', style='cyan')
-    table.add_column('Location', justify='left', style='cyan')
-    table.add_column('Name', justify='left', style='cyan')
+    table = Table(title='LIST OF STOCK')
+    table.add_column('№', justify='left', style='cyan2')
+    table.add_column('Item Name', justify='left', style='cyan2')
+    table.add_column('Serial No', justify='left', style='cyan2')
+    table.add_column('Location', justify='left', style='cyan2')
+    table.add_column('Name', justify='left', style='cyan2')
 
     if worksheet_name is not None:
         try:
@@ -319,13 +322,14 @@ def view_stock(worksheet_name=None):
 
 def delete_entry(result, worksheet):
     '''
-    Delete current stock
+    Ask the user if they want to delete the serial number,
+    deletes the row from the spreadsheet
     '''
     while True:
 
         console.print('''You are about to delete this serial number from
-                      the system. Do you wish to continue?
-                      Press Y for YES or N for NO''',
+                         the system. Do you wish to continue?
+                         Press Y for YES or N for NO''',
                       justify='center', style='red')
         user_input = input()
 
@@ -338,8 +342,8 @@ def delete_entry(result, worksheet):
                           style='green')
 
             while True:
-                console.print('Press S to search or M to go back to main menu',
-                              justify='center', style='cyan')
+                console.print('PRESS S TO SEARCH OR M FOR MAIN MENU',
+                              justify='center', style='cyan2')
                 user_answer = input()
                 if user_answer.lower() == 's':
                     validate_search_data()
@@ -350,8 +354,8 @@ def delete_entry(result, worksheet):
                                   justify='center', style='red')
 
         elif user_input.lower() == 'n':
-            console.print('Redirecting to main menu',
-                          justify='center', style='cyan')
+            console.print('Redirecting to main menu...',
+                          justify='center', style='cyan2')
             main_menu()
         else:
             console.print('Invalid Input. Try again',
@@ -360,7 +364,10 @@ def delete_entry(result, worksheet):
 
 def edit_entry(result, worksheet):
     '''
-    Edit entry
+    Takes user's input for location and location name,
+    updates the corresponding cells with the new data,
+    checks if the location is matching the correct spreadsheet,
+    if not adds the row to the new spreadsheet and deletes it from the old
     '''
     new_loc = stock_location_input()
     new_loc_name = stock_loc_name_input(new_loc)
@@ -395,20 +402,20 @@ def search_again_menu(result, worksheet):
     Search menu options
     '''
     while True:
-        console.print('''Please Press:
-        S to search again
-        E to edit stock location
-        D to delete
-        M for main menu''',
-                      justify='center', style='cyan')
+        console.print('''PLEASE PRESS:
+                            S TO SEARCH AGAIN
+                            E TO EDIT STOCK LOCATION
+                            D TO DELETE
+                            M FOR MAIN MENU''',
+                      justify='center', style='cyan2')
         user_input = input()
         if user_input.lower() == 's':
             validate_search_data()
         elif user_input.lower() == 'e':
             edit_entry(result, worksheet)
 
-            console.print('Press S to search or M to go back to main menu',
-                          justify='center', style='cyan')
+            console.print('PRESS S TO SEARCH OR M TO GO BACK TO MAIN MENU',
+                          justify='center', style='cyan2')
             user_answer = input()
             if user_answer.lower() == 's':
                 validate_search_data()
@@ -421,8 +428,8 @@ def search_again_menu(result, worksheet):
         elif user_input.lower() == 'd':
             delete_entry(result, worksheet)
 
-            console.print('Press S to search or M to go back to main menu',
-                          justify='center', style='cyan')
+            console.print('PRESS S TO SEARCH OR M TO GO BACK TO MAIN MENU',
+                          justify='center', style='cyan2')
             user_answer = input()
             if user_answer.lower() == 's':
                 validate_search_data()
@@ -445,10 +452,10 @@ def search_data(result, worksheet):
     '''
     result_row_data = worksheet.row_values(result.row)
     table = Table(title='Result')
-    table.add_column('Item Name', justify='left', style='cyan')
-    table.add_column('Serial No', justify='left', style='cyan')
-    table.add_column('Location', justify='left', style='cyan')
-    table.add_column('Name', justify='left', style='cyan')
+    table.add_column('Item Name', justify='left', style='cyan2')
+    table.add_column('Serial No', justify='left', style='cyan2')
+    table.add_column('Location', justify='left', style='cyan2')
+    table.add_column('Name', justify='left', style='cyan2')
     table.add_row(*result_row_data)
     console.print(table, justify='center')
 
@@ -462,7 +469,7 @@ def validate_search_data():
     '''
     while True:
         console.print('Please enter the serial number you wish to search:',
-                      justify='center', style='cyan')
+                      justify='center', style='cyan2')
         user_input = input()
         pattern = r"^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$"
         if re.match(pattern, user_input) and 4 <= len(user_input) <= 20:
@@ -520,14 +527,14 @@ def welcome_screen():
     '''
     Prints welcome message
     '''
-    console.print('Welcome to Inventory Management\n',
+    console.print('WELCOME TO INVENTORY MANAGEMENT\n',
                   justify='center', style='cyan3')
     console.print('''
     The program designed to manage serialized stock.
     Inventory Management allows you to add stock by defining the stock name,
     serial number, location and location name. You can view stock by location,
     search by serial number, edit location and delete stock on the system.\n
-    ''', justify='center', style='blue')
+    ''', justify='center', style='light_steel_blue1')
 
 
 def main_menu():
@@ -535,11 +542,15 @@ def main_menu():
     Main menu function
     '''
     while True:
-        console.print('------ MAIN MENU ------',
-                      justify='center', style='blue')
-        console.print('PRESS C TO ADD STOCK, PRESS V TO VIEW STOCK, PRESS S',
-                      'TO SEARCH AND EDIT OR Q TO QUIT\n', justify='center',
-                      style='cyan')
+        console.print(' ------ MAIN MENU ------ ',
+                      justify='center', style='light_steel_blue1')
+        console.print(
+            '''
+        PRESS C TO ADD STOCK
+        PRESS V TO VIEW STOCK,
+        PRESS S TO SEARCH AND EDIT
+        PRESS Q TO QUIT\n
+        ''', justify='center', style='cyan2')
         user_input = input()
         if user_input.lower() == 'c':
             user_input = stock_input()
