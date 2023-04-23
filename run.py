@@ -233,7 +233,7 @@ def view_stock_menu():
     W to view warehouse stock
     J to view job/site stock
     E to view engineer stock
-    Q to go back to main menu''', justify='center', style='cyan')
+    M to go back to main menu''', justify='center', style='cyan')
     user_input = input()
 
     while True:
@@ -249,20 +249,20 @@ def view_stock_menu():
         elif user_input.lower() == 'e':
             view_stock('engineer')
             break
-        elif user_input.lower() == 'q':
+        elif user_input.lower() == 'm':
             main_menu()
         else:
             console.print('Invalid input. Please try again',
                           justify='center', style='red')
 
     while True:
-        console.print('Press B to go back or Q to quit',
+        console.print('Press B to go back or M to main menu',
                       justify='center', style='cyan')
         user_input = input()
         if user_input.lower() == 'b':
             view_stock_menu()
             break
-        elif user_input.lower() == 'q':
+        elif user_input.lower() == 'm':
             main_menu()
         else:
             console.print('Invalid input. Please try again',
@@ -330,8 +330,9 @@ def delete_entry(result, worksheet):
             current_row = result.row
             result_row_values = worksheet.row_values(result.row)
             worksheet.delete_rows(current_row)
-            console.print('Serial number deleted successfully', ','.join(result_row_values),
-                          justify='center', style='green')
+            console.print('Serial number deleted successfully',
+                          ','.join(result_row_values), justify='center',
+                          style='green')
 
             while True:
                 console.print('Press S to search or M to go back to main menu',
@@ -396,7 +397,7 @@ def search_again_menu(result, worksheet):
         S to search again
         E to edit stock location
         D to delete
-        Q for main menu''',
+        M for main menu''',
                       justify='center', style='cyan')
         user_input = input()
         if user_input.lower() == 's':
@@ -429,7 +430,7 @@ def search_again_menu(result, worksheet):
                 console.print('Invalid Input. Try again',
                               justify='center', style='red')
 
-        elif user_input.lower() == 'q':
+        elif user_input.lower() == 'm':
             main_menu()
         else:
             console.print('Invalid Input. Try again',
@@ -490,11 +491,34 @@ def validate_search_data():
             )
 
 
+def quit_menu():
+    '''
+    Ask if the user wants to quit the program
+    '''
+    while True:
+        console.print('Do you wish to exit the program?',
+                      'Press Y for YES or N for NO', justify='center', style='red')
+        user_input = input()
+        if user_input.lower() == 'y':
+            console.print('Exiting... GoodBye!',
+                          justify='center', style='green')
+            quit()
+        elif user_input.lower() == 'n':
+            console.print('Redirecting to main menu',
+                          justify='center', style='green')
+            main_menu()
+        else:
+            console.print('Invalid Input. Try again',
+                          justify='center', style='red')
+
+
 def main_menu():
     '''
     Main menu function
     '''
     while True:
+        console.print('------ MAIN MENU ------',
+                      justify='center', style='blue')
         console.print('PRESS C TO ADD STOCK, PRESS V TO VIEW STOCK, PRESS S',
                       'TO SEARCH OR Q TO QUIT\n', justify='center',
                       style='cyan')
@@ -509,7 +533,7 @@ def main_menu():
         elif user_input.lower() == 's':
             validate_search_data()
         elif user_input.lower() == 'q':
-            quit()
+            quit_menu()
         else:
             console.print('Invalid input. Please select one of the available ',
                           'options (C,V,S,Q)', justify='center', style='red')
