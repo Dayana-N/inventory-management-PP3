@@ -201,7 +201,9 @@ def add_stock(entry):
     find_serial = None
     try:
         for worksheet in SHEET.worksheets():
-            find_serial = worksheet.find(serial_num)
+            search_result = worksheet.find(serial_num)
+            if search_result is not None:
+                find_serial = search_result
     except gspread.exceptions.WorksheetNotFound:
         console.print('Worksheet not found. Please try again.',
                       justify='center', style='red')
@@ -559,7 +561,7 @@ def main_menu():
     while True:
         console.print(
             '''
-             ------ MAIN MENU ------ 
+             ------ MAIN MENU ------
              ''', justify='center', style='light_steel_blue1')
         console.print(
             '''
