@@ -1,12 +1,14 @@
 '''
 Main code for the program for terminal of 80 characters wide and 24 rows high
 '''
+import sys
+from time import sleep
 import re
 import gspread
 from google.oauth2.service_account import Credentials
 from rich.console import Console
 from rich.table import Table
-from welcome_screen import BORDER
+from app_text import BORDER, INSTRUCTIONS
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -23,6 +25,16 @@ console = Console()
 warehouse_data = SHEET.worksheet('warehouse')
 job_data = SHEET.worksheet('job')
 engineer_data = SHEET.worksheet('engineer')
+
+
+def typewritter(text, time):
+    '''
+    Creates typewritter effect
+    '''
+    for char in text:
+        sleep(time)
+        sys.stdout.write(char)
+        sys.stdout.flush()
 
 
 class CreateStock():
@@ -545,9 +557,7 @@ def welcome_screen():
     '''
     Prints welcome message
     '''
-    console.print('WELCOME TO INVENTORY MANAGEMENT\n',
-                  justify='center', style='cyan3')
-    console.print(BORDER, justify='center', style='light_steel_blue1')
+    console.print(BORDER, justify='center', style='thistle1')
 
 
 def display_info():
@@ -555,55 +565,7 @@ def display_info():
     Displays instructions on how to use
     the application
     '''
-    console.print(
-        '''
-        Inventory Management allows you to manage serialized inventory.
-The program can help any business track its serialized stock.
-When you run the program you will be presented with the main menu.\n
-PRESS C TO ADD STOCK
-PRESS V TO VIEW STOCK,
-PRESS S TO SEARCH AND EDIT
-PRESS I FOR INSTRUCTIONS
-PRESS Q TO QUIT \n
-To add stock to the system press C. The system will then ask for
-name of the particular item/stock and serial number. After that, you can
-add the location of the stock:\n
-PRESS W FOR WAREHOUSE
-PRESS J FOR JOB/SITE
-PRESS E TO ASSIGN TO ENGINEER\n
-If you select W for warehouse the system will ask if the stock
-should be added to G for good stock location (working stock) or
-B for bad stock location (faulty stock, broken returns, etc)\n
-If you select J for job/site, the system will ask for the name of
-the site that the stock was installed/shipped to\n
-If you select E for an engineer, the system will ask for the
-name of the engineer that holds this stock.\n
-The system will then check if the serial number exists on the system and if
-it doesn't it will add it to the system and will display all the information
-added. If the serial number already exists the system will display a message
-in red letting the user know that the serial number already exists and will
-redirect to the main menu.\n
-If you wish to view stock from the main menu press V. The system will ask if
-you wish to view all stock, or by location and will then display the data in
-a table.\n
-If you wish to search and edit you can do so by pressing S to search.
-The system will ask for the serial number and will search the system. If the
-serial number is not found the system will let the user know and will redirect
-to the main menu. If the serial number is found it will be displayed in
-a table. You will can then \n
-PRESS:
-S TO SEARCH AGAIN
-E TO EDIT STOCK LOCATION
-D TO DELETE
-M FOR MAIN MENU\n
-To edit the location of the displayed serial number press E. The system will
-ask for the new location and will update the system.\n
-To delete the displayed serial number press D. The system will ask if you wish
-to proceed and will delete the serial number permanently from the system.\n
-Full documentation can be found at:
-https://github.com/Dayana-N/inventory-management-PP3
-        ''', justify='left', style='plum1'
-    )
+    typewritter(INSTRUCTIONS, 0.01)
 
 
 def main_menu():
@@ -613,15 +575,12 @@ def main_menu():
     while True:
         console.print(
             '''
------- M A I N   M E N U ------
-    ''', justify='left', style='light_steel_blue1')
-        console.print(
-            '''
-    PRESS C TO ADD STOCK
-    PRESS V TO VIEW STOCK
-    PRESS S TO SEARCH AND EDIT
-    PRESS I FOR INSTRUCTIONS
-    PRESS Q TO QUIT\n
+    ------ M A I N   M E N U ------
+        PRESS C TO ADD STOCK
+        PRESS V TO VIEW STOCK
+        PRESS S TO SEARCH AND EDIT
+        PRESS I FOR INSTRUCTIONS
+        PRESS Q TO QUIT\n
     ''', justify='left', style='light_steel_blue1')
         user_input = input()
         if user_input.lower() == 'c':
