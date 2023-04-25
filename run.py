@@ -248,8 +248,10 @@ def view_stock_menu():
     Asks the user if they would like to see all stock,
     engineer stock, warehouse or stock on site
     '''
-    console.print(
-        '''
+
+    while True:
+        console.print(
+            '''
     PLEASE PRESS
     A TO VIEW ALL STOCK
     W TO VIEW WAREHOUSE STOCK
@@ -257,9 +259,7 @@ def view_stock_menu():
     E TO VIEW ENGINEER STOCK
     M FOR MAIN MENU
     ''', justify='center', style='light_steel_blue1')
-    user_input = input()
-
-    while True:
+        user_input = input()
         if user_input.lower() == 'a':
             view_stock()
             break
@@ -277,7 +277,6 @@ def view_stock_menu():
         else:
             console.print('Invalid input. Please try again',
                           justify='center', style='red')
-            view_stock_menu()
 
     while True:
         console.print('PRESS B TO GO BACK OR M FOR MAIN MENU',
@@ -289,7 +288,7 @@ def view_stock_menu():
         elif user_input.lower() == 'm':
             main_menu()
         else:
-            console.print('Invalid input. Please try again',
+            console.print('Invalid input. Redirecting to view stock menu',
                           justify='center', style='red')
             view_stock_menu()
 
@@ -352,7 +351,7 @@ def delete_entry(result, worksheet):
             You are about to delete this serial number from
             the system. Do you wish to continue?
             Press Y for YES or N for NO
-            ''', justify='center', style='red')
+            ''', justify='center', style='bright_red')
         user_input = input()
 
         if user_input.lower() == 'y':
@@ -381,9 +380,8 @@ def delete_entry(result, worksheet):
                           justify='center', style='light_steel_blue1')
             main_menu()
         else:
-            console.print('Invalid Input. Redirecting to main menu...',
+            console.print('Invalid Input. Try again.',
                           justify='center', style='red')
-            main_menu()
 
 
 def edit_entry(result, worksheet):
@@ -576,6 +574,7 @@ def main_menu():
         console.print(
             '''
     ------ M A I N   M E N U ------
+
         PRESS C TO ADD STOCK
         PRESS V TO VIEW STOCK
         PRESS S TO SEARCH AND EDIT
