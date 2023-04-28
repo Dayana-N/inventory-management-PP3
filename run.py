@@ -431,7 +431,7 @@ def search_again_menu(result, worksheet):
         E TO EDIT STOCK LOCATION
         D TO DELETE
         M FOR MAIN MENU
-        ''', justify='center', style='light_steel_blue1')
+        ''', justify='center', style='plum2')
 
         user_input = input()
         if user_input.lower() == 's':
@@ -555,7 +555,7 @@ def welcome_screen():
     '''
     Prints welcome message
     '''
-    console.print(BORDER, justify='center', style='thistle1')
+    console.print(BORDER, justify='center', style='bright_magenta')
 
 
 def display_info():
@@ -580,7 +580,7 @@ def main_menu():
         PRESS S TO SEARCH AND EDIT
         PRESS I FOR INSTRUCTIONS
         PRESS Q TO QUIT\n
-    ''', justify='left', style='light_steel_blue1')
+    ''', justify='left', style='magenta')
         user_input = input()
         if user_input.lower() == 'c':
             user_input = stock_input()
