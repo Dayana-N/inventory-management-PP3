@@ -29,7 +29,8 @@ engineer_data = SHEET.worksheet('engineer')
 
 def typewritter(text, time):
     '''
-    Creates typewritter effect
+    Creates typewritter effect,
+    borrowed from StackOverflow
     '''
     for char in text:
         sleep(time)

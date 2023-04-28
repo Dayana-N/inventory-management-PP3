@@ -16,6 +16,12 @@ Inventory Management is a software program developed to facilitate the managemen
     -   [Flowchart](#flowchart)
 -   [Features](#features)
     -   [Welcome Screen](#Welcome-Screen)
+    -   [Main Menu](#main-menu)
+    -   [C - Add stock](#c---add-stock)
+    -   [V - View Stock](#v---view-stock)
+    -   [S - Search and edit](#s---search-and-edit)
+    -   [I - Instructions](#i---instructions)
+    -   [Q - Quit](#q---quit)
 -   [Future Features](#future-features)
 -   [Testing](#testing)
 -   [Bugs](#Bugs)
@@ -119,10 +125,42 @@ This option allows the user to search the system by serial number.
 - The delete option will ask the user for confirmation if they wish to delete the serial number from the system. Once the user presses Y the data is deleted permanently. 
 ![delete stock](./images/readme_img/features/delete.PNG) <br>
 - The main menu option brings the user back to the main menu.
+
 ## I - Instructions
 This option will print to the user the instructions on how to use the application. Then the main menu is displayed. 
+
 ## Q - Quit
 The user will be asked for confirmation if they wish to quit.
 - Y exits the program
 - N brings the user back to the main menu.
 ![quit](./images/readme_img/features/quit.PNG) <br>
+
+# Future Features
+- I would like to use a database to store all the data.
+- I would like to implement a feature showing stock movements for each serial number. 
+- I would like to build a front end for this application for easier navigation through the features
+
+# Testing
+
+# Bugs
+1. During the testing stages of the application an infinite loop was discovered when invalid input was entered. The message invalid input kept printing. This was resolved by printing the menu within the while loop. 
+2. Before a new serial number is added, the system will loop through each spreadsheet and search if the serial number exists and will update a variable with the result. I was getting incorrect results due to the fact that the variable was updated on every loop and if the serial number is not found in the last spreadsheet then the variable is updated as not found. This was resolved by adding a condition to update the variable only if the result is not none. Screenshot attatched showing the value of the variable changing on each loop. Further tests confirmed that the issue was resolved
+![bug](./images/readme_img/bug-adding-serial.PNG) <br>
+
+# Technologies And Languages
+## Languages Used
+- Python
+- CSS to add style to the body of layout.html
+
+## Python Modules
+- [Gspread](https://docs.gspread.org/en/latest/index.html) - to access Google Sheets and edit data
+- [Google auth](https://google-auth.readthedocs.io/en/stable/index.html) - was used for authentication with google APIs using credentials.
+- [Sys](https://docs.python.org/3/library/sys.html?highlight=sys#module-sys) - to call specific functions to allow to display the text with typewritter effect
+- [Time](https://docs.python.org/3/library/time.html?highlight=time#module-time) - to add a sleep function between displaying each character
+- [Re](https://docs.python.org/3/library/re.html?highlight=re#module-re) - to create a regex pattern for input validation
+- [Rich](https://rich.readthedocs.io/en/stable/introduction.html) - to create tables and add colour to text
+## User defined modules
+- app_text - was used to store the welcome screen ASCII and the instructions on how to use the application.
+## Technologies and programs
+
+
