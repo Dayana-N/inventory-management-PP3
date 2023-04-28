@@ -496,7 +496,7 @@ def validate_search_data():
     while True:
         console.print('Please enter the serial number you wish to search:',
                       justify='center')
-        user_input = input()
+        user_input = input().strip()
         pattern = r"^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$"
         if re.match(pattern, user_input) and 4 <= len(user_input) <= 20:
             result_found = False
