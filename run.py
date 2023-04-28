@@ -57,8 +57,7 @@ def stock_name_input():
     '''
     while True:
         console.print('PLEASE ENTER THE NAME OF THE STOCK YOU WISH TO ADD',
-                      'FOR EXAMPLE: Clover Station',
-                      justify='center', style='light_steel_blue1')
+                      'FOR EXAMPLE: Clover Station', justify='center')
         stock_name = input()
         pattern = r"^(?!.*\s\s)(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s]*[a-zA-Z0-9]$"
         if re.match(pattern, stock_name) and 4 <= len(stock_name) <= 20:
@@ -113,7 +112,7 @@ def stock_location_input():
         PRESS W FOR WAREHOUSE
         PRESS J FOR JOB/SITE
         PRESS E TO ASSIGN TO ENGINEER
-        ''', justify='center', style='light_steel_blue1')
+        ''', justify='center')
         stock_loc_input = input()
         stock_location = ''
 
@@ -145,8 +144,7 @@ def stock_loc_name_input(location):
             console.print('''
             PLEASE ENTER:
             G TO ADD TO GOOD STOCK,
-            B TO ADD TO BAD STOCK''', justify='center',
-                          style='light_steel_blue1')
+            B TO ADD TO BAD STOCK''', justify='center')
             loc_name_input = input()
             if loc_name_input.lower() == 'g':
                 loc_name = 'good'
@@ -162,7 +160,7 @@ def stock_loc_name_input(location):
         while True:
             console.print(
                 'PLEASE ENTER THE NAME OF THE SITE. FOR EXAMPLE: Circle K',
-                justify='center', style='light_steel_blue1')
+                justify='center')
             loc_name_input = input()
             pattern = r"^[a-zA-Z]+(?: [a-zA-Z]+)*$"
             if re.match(pattern, loc_name_input) and \
@@ -258,7 +256,7 @@ def view_stock_menu():
     J TO VIEW JOB/SITE STOCK
     E TO VIEW ENGINEER STOCK
     M FOR MAIN MENU
-    ''', justify='center', style='light_steel_blue1')
+    ''', justify='center')
         user_input = input()
         if user_input.lower() == 'a':
             view_stock()
@@ -280,7 +278,7 @@ def view_stock_menu():
 
     while True:
         console.print('PRESS B TO GO BACK OR M FOR MAIN MENU',
-                      justify='center', style='light_steel_blue1')
+                      justify='center')
         user_input = input()
         if user_input.lower() == 'b':
             view_stock_menu()
@@ -299,11 +297,11 @@ def view_stock(worksheet_name=None):
     '''
     index = 0
     table = Table(title='LIST OF STOCK')
-    table.add_column('№', justify='left', style='light_steel_blue1')
-    table.add_column('Item Name', justify='left', style='light_steel_blue1')
-    table.add_column('Serial No', justify='left', style='light_steel_blue1')
-    table.add_column('Location', justify='left', style='light_steel_blue1')
-    table.add_column('Name', justify='left', style='light_steel_blue1')
+    table.add_column('№', justify='left')
+    table.add_column('Item Name', justify='left')
+    table.add_column('Serial No', justify='left')
+    table.add_column('Location', justify='left')
+    table.add_column('Name', justify='left')
 
     if worksheet_name is not None:
         try:
@@ -364,7 +362,7 @@ def delete_entry(result, worksheet):
 
             while True:
                 console.print('PRESS S TO SEARCH OR M FOR MAIN MENU',
-                              justify='center', style='light_steel_blue1')
+                              justify='center')
                 user_answer = input()
                 if user_answer.lower() == 's':
                     validate_search_data()
@@ -377,7 +375,7 @@ def delete_entry(result, worksheet):
 
         elif user_input.lower() == 'n':
             console.print('Redirecting to main menu...',
-                          justify='center', style='light_steel_blue1')
+                          justify='center')
             main_menu()
         else:
             console.print('Invalid Input. Try again.',
@@ -431,7 +429,7 @@ def search_again_menu(result, worksheet):
         E TO EDIT STOCK LOCATION
         D TO DELETE
         M FOR MAIN MENU
-        ''', justify='center', style='plum2')
+        ''', justify='center')
 
         user_input = input()
         if user_input.lower() == 's':
@@ -440,7 +438,7 @@ def search_again_menu(result, worksheet):
             edit_entry(result, worksheet)
 
             console.print('PRESS S TO SEARCH OR M TO GO BACK TO MAIN MENU',
-                          justify='center', style='light_steel_blue1')
+                          justify='center')
             user_answer = input()
             if user_answer.lower() == 's':
                 validate_search_data()
@@ -455,7 +453,7 @@ def search_again_menu(result, worksheet):
             delete_entry(result, worksheet)
 
             console.print('PRESS S TO SEARCH OR M TO GO BACK TO MAIN MENU',
-                          justify='center', style='light_steel_blue1')
+                          justify='center')
             user_answer = input()
             if user_answer.lower() == 's':
                 validate_search_data()
@@ -480,10 +478,10 @@ def search_data(result, worksheet):
     '''
     result_row_data = worksheet.row_values(result.row)
     table = Table(title='Result')
-    table.add_column('Item Name', justify='left', style='light_steel_blue1')
-    table.add_column('Serial No', justify='left', style='light_steel_blue1')
-    table.add_column('Location', justify='left', style='light_steel_blue1')
-    table.add_column('Name', justify='left', style='light_steel_blue1')
+    table.add_column('Item Name', justify='left')
+    table.add_column('Serial No', justify='left')
+    table.add_column('Location', justify='left')
+    table.add_column('Name', justify='left')
     table.add_row(*result_row_data)
     console.print(table, justify='center')
 
@@ -497,7 +495,7 @@ def validate_search_data():
     '''
     while True:
         console.print('Please enter the serial number you wish to search:',
-                      justify='center', style='light_steel_blue1')
+                      justify='center')
         user_input = input()
         pattern = r"^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$"
         if re.match(pattern, user_input) and 4 <= len(user_input) <= 20:
@@ -555,7 +553,7 @@ def welcome_screen():
     '''
     Prints welcome message
     '''
-    console.print(BORDER, justify='center', style='bright_magenta')
+    console.print(BORDER, justify='center')
 
 
 def display_info():
@@ -580,7 +578,7 @@ def main_menu():
         PRESS S TO SEARCH AND EDIT
         PRESS I FOR INSTRUCTIONS
         PRESS Q TO QUIT\n
-    ''', justify='left', style='magenta')
+    ''', justify='left')
         user_input = input()
         if user_input.lower() == 'c':
             user_input = stock_input()
