@@ -26,6 +26,10 @@ Inventory Management is a software program developed to facilitate the managemen
 -   [Testing](#testing)
 -   [Bugs](#Bugs)
 -   [Technologies And Languages](#technologies-and-languages)
+    - [Languages Used](#languages-used)
+    - [Python Modules](#python-modules)
+    - [User Defined Modules](#user-defined-modules)
+    - [Technologies and programs](#technologies-and-programs)
 -   [Deployment](#deployment)
     -   [Creating A Fork](#creating-a-fork)
     -   [Cloning Repository](#cloning-repository)
@@ -95,7 +99,6 @@ The welcome screen is displayed when the program runs. It uses ASCII art to surr
 The main menu is displayed when the program runs initially and when the user selects the main menu option from another menu. This menu allows the user to access the program's functionalities.
 ![main menu](./images/readme_img/features/main-menu.PNG) 
 ## C - Add stock
----
 This option allows the user to add stock to the inventory system. The following steps are to add a stock name, serial number, stock location, and location name. Each input is validated and it will display a warning message to the user with guidelines for the input requirements. The user is presented with three possible locations for the serial number entered. 
 1. Warehouse - This location has two options:
 - Good - This is where all good stock is stored
@@ -127,7 +130,8 @@ This option allows the user to search the system by serial number.
 - The main menu option brings the user back to the main menu.
 
 ## I - Instructions
-This option will print to the user the instructions on how to use the application. Then the main menu is displayed. 
+This option will print to the user the instructions on how to use the application with typewritter effect. Then the main menu is displayed. 
+![instructions](./images/readme_img/features/instructions.PNG) <br>
 
 ## Q - Quit
 The user will be asked for confirmation if they wish to quit.
@@ -162,5 +166,20 @@ The user will be asked for confirmation if they wish to quit.
 ## User defined modules
 - app_text - was used to store the welcome screen ASCII and the instructions on how to use the application.
 ## Technologies and programs
-
+- [GitHub](https://github.com/) is the hosting site used to store the code for the website.
+- [Git](https://git-scm.com/) was used as a version control software to commit and push the code to the GitHub repository.
+- [Heroku](https://www.heroku.com) was used to deploy the application
+- [CI Python Linter](https://pep8ci.herokuapp.com/) was used to validate the python code
+- [Diagrams.net](https://www.diagrams.net/) was used to create the flowchart
+- [CI Template](https://github.com/Code-Institute-Org/python-essentials-template) was used as a starting point for the project
+# Deployment
+## Before Deployment
+To ensure the application is deployed correctly on Heroku it is mandatory to update the requirements.txt. This is a list of requirements that the application needs in order to run. 
+- To create the list of requirements we use the command pip3 freeze > requirements.txt. This will ensure the file with the requirements is updated.
+- Next we need to commit and push the changes to GitHub.
+## Deployment on Heroku
+- To deploy the project on [Heroku](https://www.heroku.com), first we need to create an account.
+- Once logged in, we need to create a new app by clicking on the create app button
+- We need to pick an unique name for the app, select region and click create app.
+- On the next page we select the settings tab and scroll down to Config Vars
 
