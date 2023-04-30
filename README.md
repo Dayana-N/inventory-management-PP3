@@ -20,6 +20,8 @@ Inventory Management is a software program developed to facilitate the managemen
     - [C - Add stock](#c---add-stock)
     - [V - View Stock](#v---view-stock)
     - [S - Search and edit](#s---search-and-edit)
+    - [E - Edit stock location](#e---edit-stock-location)
+    - [D - Delete](#d---delete)
     - [I - Instructions](#i---instructions)
     - [Q - Quit](#q---quit)
 -   [Future Features](#future-features)
@@ -101,7 +103,7 @@ The welcome screen is displayed when the program runs. It uses ASCII art to surr
 The main menu is displayed when the program runs initially and when the user selects the main menu option from another menu. This menu allows the user to access the program's functionalities.
 ![main menu](./images/readme_img/features/main-menu.PNG) 
 ## C - Add stock
-This option allows the user to add stock to the inventory system. The following steps are to add a stock name, serial number, stock location, and location name. Each input is validated and it will display a warning message to the user with guidelines for the input requirements. The user is presented with three possible locations for the serial number entered. 
+This option allows the user to add stock to the inventory system. The following steps are required to add stock. The user must input name, serial number, stock location, and location name. Each input is validated and it will display a warning message to the user with guidelines for the input requirements. The user is presented with three possible locations for the serial number entered. 
 1. Warehouse - This location has two options:
 - Good - This is where all good stock is stored
 - Bad - This is where faulty, broken stock or returns are stored
@@ -125,9 +127,11 @@ This option allows the user to search the system by serial number.
 2. If the serial number exists on the system, the data will be displayed in a table. The user will be presented with a menu that will allow them to search again, edit, delete, or go back to the main menu.
 ![search result found](./images/readme_img/features/search-success.PNG) <br>
 - The search again option will bring the user back to the search screen and will ask for the serial number.
-- The edit stock location will allow the user to change the location of the stock. It will require location input followed by location name. If the input is valid the user will be presented with a success message with the new details saved on the system. The user can either search again or go back to the main menu.
+## E - Edit stock location 
+The edit stock location will allow the user to change the location of the stock. It will require location input followed by location name. If the input is valid the user will be presented with a success message with the new details saved on the system. The user can either search again or go back to the main menu.
 ![edit stock location](./images/readme_img/features/edit-location.PNG) <br>
-- The delete option will ask the user for confirmation if they wish to delete the serial number from the system. Once the user presses Y the data is deleted permanently. 
+## D - Delete 
+The delete option will ask the user for confirmation if they wish to delete the serial number from the system. Once the user presses Y the data is deleted permanently. 
 ![delete stock](./images/readme_img/features/delete.PNG) <br>
 - The main menu option brings the user back to the main menu.
 
