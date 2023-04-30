@@ -38,7 +38,7 @@ def typewritter(text, time):
         sys.stdout.flush()
 
 
-class CreateStock():
+class Stock():
     '''
     Creates object for new stock
     by taking stock name, serial number, location and location name
@@ -338,6 +338,24 @@ def view_stock(worksheet_name=None):
     console.print(table, justify='center')
 
 
+def search_or_back_menu():
+    '''
+    Displays the search or back to menu option
+    '''
+    while True:
+        console.print('PRESS S TO SEARCH OR M FOR MAIN MENU',
+                      justify='center')
+        user_answer = input()
+        if user_answer.lower() == 's':
+            search_data()
+        elif user_answer.lower() == 'm':
+            main_menu()
+        else:
+            console.print('Invalid Input. Redirecting to main menu...',
+                          justify='center', style='red')
+            main_menu()
+
+
 def delete_entry(result, worksheet):
     '''
     Ask the user if they want to delete the serial number,
@@ -360,19 +378,7 @@ def delete_entry(result, worksheet):
             console.print('Serial number deleted successfully',
                           ','.join(result_row_values), justify='center',
                           style='green')
-
-            while True:
-                console.print('PRESS S TO SEARCH OR M FOR MAIN MENU',
-                              justify='center')
-                user_answer = input()
-                if user_answer.lower() == 's':
-                    validate_search_data()
-                elif user_answer.lower() == 'm':
-                    main_menu()
-                else:
-                    console.print('Invalid Input. Redirecting to main menu...',
-                                  justify='center', style='red')
-                    main_menu()
+            search_or_back_menu()
 
         elif user_input.lower() == 'n':
             console.print('Redirecting to main menu...',
@@ -434,36 +440,13 @@ def search_again_menu(result, worksheet):
 
         user_input = input()
         if user_input.lower() == 's':
-            validate_search_data()
+            search_data()
         elif user_input.lower() == 'e':
             edit_entry(result, worksheet)
-
-            console.print('PRESS S TO SEARCH OR M TO GO BACK TO MAIN MENU',
-                          justify='center')
-            user_answer = input()
-            if user_answer.lower() == 's':
-                validate_search_data()
-            elif user_answer.lower() == 'm':
-                main_menu()
-            else:
-                console.print('Invalid Input. redirecting to main menu...',
-                              justify='center', style='red')
-                main_menu()
+            search_or_back_menu()
 
         elif user_input.lower() == 'd':
             delete_entry(result, worksheet)
-
-            console.print('PRESS S TO SEARCH OR M TO GO BACK TO MAIN MENU',
-                          justify='center')
-            user_answer = input()
-            if user_answer.lower() == 's':
-                validate_search_data()
-            elif user_answer.lower() == 'm':
-                main_menu()
-            else:
-                console.print('Invalid Input. Redirecting to main menu...',
-                              justify='center', style='red')
-                main_menu()
 
         elif user_input.lower() == 'm':
             main_menu()
@@ -473,7 +456,7 @@ def search_again_menu(result, worksheet):
             main_menu()
 
 
-def search_data(result, worksheet):
+def display_data(result, worksheet):
     '''
     Search data and displays it in a table
     '''
@@ -489,7 +472,7 @@ def search_data(result, worksheet):
     search_again_menu(result, worksheet)
 
 
-def validate_search_data():
+def search_data():
     '''
     Allows the user to search by serial number in all worksheets
     Validates the user search input and handles any potential errors
@@ -505,7 +488,7 @@ def validate_search_data():
                 for worksheet in SHEET.worksheets():
                     result = worksheet.find(user_input.upper())
                     if result:
-                        search_data(result, worksheet)
+                        display_data(result, worksheet)
                         result_found = True
                 if not result_found:
                     console.print('No results found\n',
@@ -583,13 +566,13 @@ def main_menu():
         user_input = input()
         if user_input.lower() == 'c':
             user_input = stock_input()
-            entry = CreateStock(*user_input)
+            entry = Stock(*user_input)
 
             add_stock(entry)
         elif user_input.lower() == 'v':
             view_stock_menu()
         elif user_input.lower() == 's':
-            validate_search_data()
+            search_data()
         elif user_input.lower() == 'i':
             display_info()
         elif user_input.lower() == 'q':
