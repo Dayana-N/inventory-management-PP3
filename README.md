@@ -8,20 +8,20 @@ Inventory Management is a software program developed to facilitate the managemen
 # Table Of Content
 
 -   [User Experience](#user-experience)
-    -   [User Stories](#user-stories)
-    -   [Goals](#goals)
-    -   [Scope](#scope)
+    - [User Stories](#user-stories)
+    - [Goals](#goals)
+    - [Scope](#scope)
 -   [Design](#design)
-    -   [Colour Scheme](#colour-scheme)
-    -   [Flowchart](#flowchart)
+    - [Colour Scheme](#colour-scheme)
+    - [Flowchart](#flowchart)
 -   [Features](#features)
-    -   [Welcome Screen](#Welcome-Screen)
-    -   [Main Menu](#main-menu)
-    -   [C - Add stock](#c---add-stock)
-    -   [V - View Stock](#v---view-stock)
-    -   [S - Search and edit](#s---search-and-edit)
-    -   [I - Instructions](#i---instructions)
-    -   [Q - Quit](#q---quit)
+    - [Welcome Screen](#Welcome-Screen)
+    - [Main Menu](#main-menu)
+    - [C - Add stock](#c---add-stock)
+    - [V - View Stock](#v---view-stock)
+    - [S - Search and edit](#s---search-and-edit)
+    - [I - Instructions](#i---instructions)
+    - [Q - Quit](#q---quit)
 -   [Future Features](#future-features)
 -   [Testing](#testing)
 -   [Bugs](#Bugs)
@@ -31,13 +31,15 @@ Inventory Management is a software program developed to facilitate the managemen
     - [User Defined Modules](#user-defined-modules)
     - [Technologies and programs](#technologies-and-programs)
 -   [Deployment](#deployment)
-    -   [Creating A Fork](#creating-a-fork)
-    -   [Cloning Repository](#cloning-repository)
+    - [Before Deployment](#before-deployment)
+    - [Deployment on Heroku](#deployment-on-heroku)
+    - [Creating A Fork](#creating-a-fork)
+    - [Cloning Repository](#cloning-repository)
 -   [Credits](#credits)
-    -   [Media](#media)
-    -   [Code](#code)
-    -   [Acknowledgements](#acknowledgements)
-    -   [Comments](#comments)
+    - [Media](#media)
+    - [Code](#code)
+    - [Acknowledgements](#acknowledgements)
+    - [Comments](#comments)
 
 ---
 
@@ -176,10 +178,41 @@ The user will be asked for confirmation if they wish to quit.
 ## Before Deployment
 To ensure the application is deployed correctly on Heroku it is mandatory to update the requirements.txt. This is a list of requirements that the application needs in order to run. 
 - To create the list of requirements we use the command pip3 freeze > requirements.txt. This will ensure the file with the requirements is updated.
-- Next we need to commit and push the changes to GitHub.
+- Next, we need to commit and push the changes to GitHub.
 ## Deployment on Heroku
 - To deploy the project on [Heroku](https://www.heroku.com), first we need to create an account.
 - Once logged in, we need to create a new app by clicking on the create app button
-- We need to pick an unique name for the app, select region and click create app.
-- On the next page we select the settings tab and scroll down to Config Vars
+- We need to pick a unique name for the app, select our region and click create app.
+- On the next page we select the settings tab and scroll down to Config Vars. If there are any files that should be hidden like credentials and API keys they should be added here. In this project, we have credentials that we need to protect. To do this we have created a config var and added CREDS as the key and the content of the creds.json file as value.
+- If we scroll down to Buildpacks we can add the buildpacks required for the project to be deployed correctly. The buildpacks will install further dependencies that are not included in the requirements.txt. For this project, there are two buildpacks required - Python and Nodejs.
+- From the tab above we select the deploy section. 
+- We need to select a deployment method and for this project it was GitHub. We then confirm that we want to connect to GitHub and search for the repository name and click connect to connect the Heroku app to our GitHub code. 
+- If we scroll further down to the deploy section we can enable automatic deploys which means that the app will update every time we push code to GitHub. We click deploy and wait for the app to be built. Once this is done a message should appear letting us know that the app was successfully deployed with a view button to see the app. <br>
+### This application was deployed [Here](https://pp3-inventory-management-app.herokuapp.com/)
 
+## Creating a fork
+1. Navigate to the [repository](https://github.com/Dayana-N/inventory-management-PP3)
+2. In the top-right corner of the page we click on the fork button and select create a fork.
+3. We can change the name of the fork and add a description 
+4. We can choose to copy only the main branch or all branches to the new fork. 
+5. If we lick Create a Fork, a repository should appear in our GitHub
+
+## Cloning Repository
+1. Navigate to the [repository](https://github.com/Dayana-N/inventory-management-PP3)
+2. We click on the Code button on top of the repository and copy the link. 
+3. We open Git Bash and change the working directory to the location where we want the cloned directory. 
+4. We type git clone and then paste the link.
+5. We press Enter to create our local clone.
+
+# Credits
+## Media
+- Background image [Creative Fabrica](https://www.creativefabrica.com/product/inventory-control-illustration-concept-2/)
+## Code
+- Learned how to use typewritter effect within the terminal from [Stack Overflow](https://stackoverflow.com/questions/20302331/typing-effect-in-python)
+- The ASCII art was inspired by this [project](https://github.com/PedroCristo/portfolio_project_3/blob/main/hangman_art.py) and then modified to the application's needs
+- Learned how to use Regular Expressions [Here](https://docs.python.org/3/howto/regex.html) and [Here](https://regex101.com/)
+- Learned how to use Google auth and gspread from the Love Sandwiches walkthrough project
+## Acknowledgements
+A huge Thank You to my mentor Ronan McClelland for all the brilliant advice and resources and the Slack Community for their feedback and support
+## Comments
+The idea for this project came from my previous job where we used a custom-build system to manage stock, job orders, engineer details, and various other tasks. This project was developed solely from my concept and without any assistance from tutorials or guidance. I am very happy with the end product, which is a completely operational application that can be used in a real-world setting. It was a great learning experience and I am looking forward to the next project. 
