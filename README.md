@@ -151,7 +151,7 @@ The user will be asked for confirmation if they wish to quit.
 - I would like to build a front end for this application for easier navigation through the features
 
 # Testing
-
+Testing documentation can be found under [Testing.md](./testing.md)
 # Bugs
 1. During the testing stages of the application an infinite loop was discovered when invalid input was entered. The message invalid input kept printing. This was resolved by printing the menu within the while loop. 
 2. Before a new serial number is added, the system will loop through each spreadsheet and search if the serial number exists and will update a variable with the result. I was getting incorrect results due to the fact that the variable was updated on every loop and if the serial number is not found in the last spreadsheet then the variable is updated as not found. This was resolved by adding a condition to update the variable only if the result is not none. Screenshot attatched showing the value of the variable changing on each loop. Further tests confirmed that the issue was resolved

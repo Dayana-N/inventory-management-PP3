@@ -9,7 +9,6 @@
   * [Google Lighthouse](#google-lighthouse)
 * [Manual Testing](#manual-testing)
   * [Features Testing](#features-testing)
-  * [Browser Testing](#browser-testing)
 
 # User Story Testing
 
@@ -38,3 +37,21 @@ The delete stock feature can be accessed from search and edit option in the main
 To ensure that no duplicates are stored, the application does the following:
 - When the user adds a new stock, the program will search the system checking if the serial number exists.  If the serial number already exists, the user is immediately notified with a warning message. If the serial number is not found, it will be added to the system. 
 - When the user changes the location of a serial number from the search and edit menu, the program ensures that the old data is replaced with the updated location. This guarantees that a single serial number is not registered in two different locations, eliminating any confusion.
+
+# Automated Testing
+## Pep8 CI Python Linter
+Result - All clear, no errors found <br>
+![Pep8](./images/readme_img/pep8.PNG) <br>
+### Result - Pass
+
+## The W3C CSS Validation Service
+Small changes were made to the layout.html file to add background image and center the terminal and the button. The additional CSS code passed the validator with no errors. <br>
+![CSS Validator](./images/readme_img/css-validator.PNG) <br>
+### Result - Pass
+
+## Google Lighthouse
+![Lighthouse](./images/readme_img/lighthouse.PNG) <br>
+### Result - Pass
+
+# Manual Testing
+## Features Testing
