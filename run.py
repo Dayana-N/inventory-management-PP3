@@ -61,7 +61,7 @@ def stock_name_input():
                       'FOR EXAMPLE: Clover Station', justify='center')
         stock_name = input()
         pattern = r"^(?!.*\s\s)(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s]*[a-zA-Z0-9]$"
-        if re.match(pattern, stock_name) and 4 <= len(stock_name) <= 20:
+        if re.match(pattern, stock_name) and 4 <= len(stock_name) <= 17:
             return stock_name
         else:
             console.print(
@@ -70,7 +70,7 @@ def stock_name_input():
                 The input must end with an alphanumeric character.
                 The input cannot contain two consecutive space characters.
                 The input cannot consist only of space characters.
-                The input must be between 4 and 20 characters
+                The input must be between 4 and 17 characters
                 ''', justify='center', style='red'
             )
 
@@ -83,18 +83,17 @@ def stock_serial_input():
     stock_serial = ''
     while True:
         console.print('PLEASE ENTER THE SERIAL NUMBER YOU WISH TO ADD',
-                      'FOR EXAMPLE: SN-1234', justify='center',
-                      style='light_steel_blue1')
+                      'FOR EXAMPLE: SN-1234', justify='center')
         serial_input = input()
         pattern = r"^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$"
-        if re.match(pattern, serial_input) and 4 <= len(serial_input) <= 20:
+        if re.match(pattern, serial_input) and 4 <= len(serial_input) <= 17:
             stock_serial = serial_input
             break
         else:
             console.print(
                 '''
                 The input can contain alphanumeric values and dash
-                The input must be between 4 and 20 characters
+                The input must be between 4 and 17 characters
                 ''', justify='center', style='red'
             )
 
@@ -165,13 +164,13 @@ def stock_loc_name_input(location):
             loc_name_input = input()
             pattern = r"^[a-zA-Z]+(?: [a-zA-Z]+)*$"
             if re.match(pattern, loc_name_input) and \
-                    4 <= len(loc_name_input) <= 20:
+                    4 <= len(loc_name_input) <= 17:
                 loc_name = loc_name_input
                 break
             else:
                 console.print('''
                 The input can contain alphanumeric values and space
-                The input must be between 4 and 20 characters
+                The input must be between 4 and 17 characters
                 ''', justify='center', style='red')
     elif location == 'engineer':
         while True:
@@ -180,13 +179,13 @@ def stock_loc_name_input(location):
             loc_name_input = input()
             pattern = r"^[a-zA-Z]+(?: [a-zA-Z]+)*$"
             if re.match(pattern, loc_name_input) and \
-                    4 <= len(loc_name_input) <= 20:
+                    4 <= len(loc_name_input) <= 17:
                 loc_name = loc_name_input
                 break
             else:
                 console.print('''
                 The input can contain alphanumeric values and space
-                The input must be between 4 and 20 characters
+                The input must be between 4 and 17 characters
                 ''', justify='center', style='red')
 
     return loc_name
@@ -194,8 +193,8 @@ def stock_loc_name_input(location):
 
 def stock_input():
     '''
-    Calls the input validating functions,
-    creates an object and adds it to spreadsheet
+    Calls the input validating functions and
+    returns their values
     '''
     stock_name = stock_name_input()
     stock_serial = stock_serial_input()
@@ -482,7 +481,7 @@ def search_data():
                       justify='center')
         user_input = input().strip()
         pattern = r"^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$"
-        if re.match(pattern, user_input) and 4 <= len(user_input) <= 20:
+        if re.match(pattern, user_input) and 4 <= len(user_input) <= 17:
             result_found = False
             try:
                 for worksheet in SHEET.worksheets():
@@ -506,7 +505,7 @@ def search_data():
             console.print(
                 '''
                 The input can contain alphanumeric values and dash
-                The input must be between 4 and 20 characters
+                The input must be between 4 and 17 characters
                 ''', justify='center', style='red'
             )
 
@@ -582,5 +581,6 @@ def main_menu():
                           'options (C,V,S,I,Q)', justify='center', style='red')
 
 
-welcome_screen()
-main_menu()
+if __name__ == "__main__":
+    welcome_screen()
+    main_menu()
