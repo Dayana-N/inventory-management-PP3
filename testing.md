@@ -41,17 +41,20 @@ To ensure that no duplicates are stored, the application does the following:
 # Automated Testing
 ## Pep8 CI Python Linter
 Result - All clear, no errors found <br>
-![Pep8](./images/readme_img/pep8.PNG) <br>
+![Pep8](./assets/testing/pep8.PNG) <br>
 ### Result - Pass
 
 ## The W3C CSS Validation Service
 Small changes were made to the layout.html file to add background image and center the terminal and the button. The additional CSS code passed the validator with no errors. <br>
-![CSS Validator](./images/readme_img/css-validator.PNG) <br>
+![CSS Validator](./assets/testing/css-validator.PNG) <br>
 ### Result - Pass
 
 ## Google Lighthouse
-![Lighthouse](./images/readme_img/lighthouse.PNG) <br>
+![Lighthouse](./assets/testing/lighthouse.PNG) <br>
 ### Result - Pass
 
 # Manual Testing
 ## Features Testing
+This section will cover the manual testing of the features of the application. The purpose of manual testing is to identify any potential bugs or issues in the application's functionalities. <br>
+The full testing document can be found [here](./assets/testing/PP3-testing.pdf). Please note that this is a pdf document and will require a program like Adobe Acrobat Reader DC to open it.  <br>
+![Lighthouse](./assets/testing/manual-test-features.PNG) <br>
