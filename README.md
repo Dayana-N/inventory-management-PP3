@@ -181,6 +181,7 @@ The application uses Google Sheet API or Gspread to store and manipulate the dat
 - [CI Python Linter](https://pep8ci.herokuapp.com/) was used to validate the python code
 - [Diagrams.net](https://www.diagrams.net/) was used to create the flowchart
 - [CI Template](https://github.com/Code-Institute-Org/python-essentials-template) was used as a starting point for the project
+- [Black](https://pypi.org/project/black/) was used as code formatter
 # Deployment
 ## Before Deployment
 To ensure the application is deployed correctly on Heroku it is mandatory to update the requirements.txt. This is a list of requirements that the application needs in order to run. 
