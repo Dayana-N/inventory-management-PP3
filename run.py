@@ -54,7 +54,7 @@ class Stock():
 def stock_name_input():
     '''
     Validates the user input for stock name. Only letters,
-    numbers and empty spaces allowed, not only empty space on it's own
+    numbers and empty spaces allowed, not empty space on it's own
     '''
     while True:
         console.print('PLEASE ENTER THE NAME OF THE STOCK YOU WISH TO ADD',
@@ -135,7 +135,7 @@ def stock_location_input():
 
 def stock_loc_name_input(location):
     '''
-    Checks the location and asks the user to enter,
+    Checks the location and asks the user to enter
     location name based on the result, validates the input
     '''
     loc_name = ''
@@ -208,6 +208,7 @@ def add_stock(entry):
     Check if the serial number exist on the system,
     if not adds it to spreadsheet and handles potential errors
     '''
+    # Loop through spreadsheets and search serial number
     serial_num = entry.serial
     find_serial = None
     try:
@@ -220,6 +221,7 @@ def add_stock(entry):
                       justify='center', style='red')
         main_menu()
 
+    # If no serial is found add the new entry to the spreadsheet
     if find_serial is None:
         try:
             current_sheet = SHEET.worksheet(entry.location)
@@ -405,7 +407,6 @@ def edit_entry(result, worksheet):
         try:
             current_sheet = SHEET.worksheet(new_loc)
             current_sheet.append_row(new_entry)
-
             old_row = result.row
             worksheet.delete_rows(old_row)
             console.print(','.join(new_entry), 'updated successfully.\n',
@@ -486,6 +487,7 @@ def search_data():
             try:
                 for worksheet in SHEET.worksheets():
                     result = worksheet.find(user_input.upper())
+                    # result_found is updated only if there is a match
                     if result:
                         display_data(result, worksheet)
                         result_found = True
@@ -534,7 +536,7 @@ def quit_menu():
 
 def welcome_screen():
     '''
-    Prints welcome message
+    Prints welcome message with ASCII art
     '''
     console.print(BORDER, justify='center')
 
